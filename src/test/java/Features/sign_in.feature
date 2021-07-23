@@ -1,4 +1,4 @@
-@Sign_in
+@sign_in
 Feature: Sign up with correct data
 Scenario: Test Sign up with correct Data
 
