@@ -83,7 +83,7 @@ public class sign_in extends Set{
 	}
 
 	@Then("^user logins by existing ac count (\\d+)CO$")
-	public void user_create_a_new_ac_count_CO(int arg1) throws Throwable {
+	public void user_logins_by_existing_ac_count_CO(int arg1) throws Throwable {
 		Thread.sleep(1000);
 		WebElement old_email = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='email']")));
 		Thread.sleep(1000);
