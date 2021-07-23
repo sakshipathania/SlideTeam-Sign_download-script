@@ -15,13 +15,14 @@ import SetupClass.Set;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
-public class sign_up_correct_data extends Set {
-	WebDriverWait wait = new WebDriverWait(driver,50);
-       JavascriptExecutor js = (JavascriptExecutor) driver;
+public class Sign_In extends Set {
 	
-	@Given("^user is already on sign up page cd$")
-	public void user_is_already_on_sign_up_page_cd() throws InterruptedException  {
-	    
+	WebDriverWait wait = new WebDriverWait(driver,10);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+	
+	@Given("^user is already on Website Home Page pp$")
+	public void user_is_already_on_Website_Home_Page_pp() throws Throwable {
+		
 		driver.get(AppURL);
 		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
 		log.info("It's opening the website URL");
@@ -37,7 +38,38 @@ public class sign_up_correct_data extends Set {
 		} catch (NoSuchElementException Ext) {
 
 		}
-	    Thread.sleep(3000);
+	    Thread.sleep(1000);
+		try {
+			WebElement iframe = driver.findElement(By.id("livechat-full-view"));
+			if(iframe.isDisplayed()) {
+				driver.switchTo().frame(iframe);   
+				 Actions act = new Actions(driver);
+				 act.moveToElement(driver.findElement(By.cssSelector("#title .icon-minimize"))).build().perform();
+				 Thread.sleep(2000);
+					WebElement chat1=driver.findElement(By.cssSelector("#title .icon-minimize"));
+					 Thread.sleep(1000);
+						chat1.click();
+						 Thread.sleep(1000);
+						 driver.switchTo().defaultContent();
+						 Thread.sleep(1000);
+						 driver.switchTo().parentFrame();
+					 Thread.sleep(1000);
+			}
+			else {
+				
+
+			System.out.println("chat window does not open");
+			}
+		}
+				catch(NoSuchElementException NCP) {
+					
+				}
+	    
+	}
+
+	@Then("^user navigates to sign up page pp$")
+	public void user_navigates_to_sign_up_page_pp() throws Throwable {
+		Thread.sleep(3000);
 		try {
 			driver.findElement(By.cssSelector("ul.header > li:nth-child(1) > a:nth-child(1)")).click();
 			Thread.sleep(2000);
@@ -47,9 +79,11 @@ public class sign_up_correct_data extends Set {
 		}
 	}
 
-	@Then("^enter new email to sign up cd$")
-	public void enter_new_email_to_sign_up_cd() throws InterruptedException  {
-	    
+	@Then("^user create a new ac count pp$")
+	public void user_create_a_new_ac_count_pp() throws Throwable {
+		
+		// create new email for sign up
+		
 		int leftLimit = 97; // letter 'a'
 	    int rightLimit = 122; // letter 'z'
 	    int targetStringLength = 10;
@@ -72,15 +106,12 @@ public class sign_up_correct_data extends Set {
 		
 
 		Thread.sleep(2000);
-	    WebElement new_email_signup = wait.until(ExpectedConditions.elementToBeClickable(By.id("email_address")));
+	    WebElement new_email_signup = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/main/div/div/div[2]/div/form/fieldset/div[4]/div/input")));
 		Thread.sleep(2000);
 	    new_email_signup.sendKeys(full_email);
 		Thread.sleep(2000);
-	}
-
-	@Then("^User enter firstname and lastname to sign up cd$")
-	public void user_enter_firstname_and_lastname_to_sign_up_cd() throws InterruptedException  {
-	    
+		
+		// enter name
 
 	    WebElement new_fname_signup = wait.until(ExpectedConditions.elementToBeClickable(By.id("firstname")));
 		Thread.sleep(2000);
@@ -91,11 +122,8 @@ public class sign_up_correct_data extends Set {
 		Thread.sleep(2000);
 	    new_lname_signup.sendKeys("Testing");
 		Thread.sleep(2000);
-	}
-
-	@Then("^user enter password and confirm password to sign up cd$")
-	public void user_enter_password_and_confirm_password_to_sign_up_cd() throws InterruptedException  {
-	    
+		
+		//enter password
 		 WebElement new_pwd_signup = wait.until(ExpectedConditions.elementToBeClickable(By.id("password")));
 			Thread.sleep(2000);
 		    new_pwd_signup.sendKeys("selenium@123");
@@ -105,99 +133,189 @@ public class sign_up_correct_data extends Set {
 			Thread.sleep(2000);
 		    new_pwd1_signup.sendKeys("selenium@123");
 			Thread.sleep(2000);
+			
+			// enter captcha
+			WebElement new_captcha_signup = wait.until(ExpectedConditions.elementToBeClickable(By.id("captcha_user_create")));
+			Thread.sleep(2000);
+		    new_captcha_signup.sendKeys("Aj7W2mtf9namwf55");
+			Thread.sleep(2000);
+		    
+		    // sign  up button
+		    WebElement new_btn_signup = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".submit")));
+			Thread.sleep(2000);
+		    new_btn_signup.click();
+			Thread.sleep(2000);
+	    
 	}
 
-	@Then("^user enter captcha to sign up cd$")
-	public void user_enter_captcha_to_sign_up_cd() throws InterruptedException  {
-	    
-		WebElement new_captcha_signup = wait.until(ExpectedConditions.elementToBeClickable(By.id("captcha_user_create")));
-		Thread.sleep(2000);
-	    new_captcha_signup.sendKeys("Aj7W2mtf9namwf55");
-		
-	}
-
-	@Then("^check checkbox to sign up cd$")
-	public void check_checkbox_to_sign_up_cd() throws InterruptedException  {
-	    
-		/*
-		 * WebElement new_checkbox_signup =
-		 * wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(
-		 * ".iCheck-helper"))); Thread.sleep(2000); new_checkbox_signup.click();
-		 */
-		Thread.sleep(2000);
-	}
-
-	@Then("^user click on sign up button to sign up cd$")
-	public void user_click_on_sign_up_button_to_sign_up_cd() throws InterruptedException  {
-	    
-		WebElement new_btn_signup = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".submit")));
-		Thread.sleep(2000);
-	    new_btn_signup.click();
-		Thread.sleep(2000);
+	@Then("^user is redirected to pricing page and choose a plan to pay pp$")
+	public void user_is_redirected_to_pricing_page_and_choose_a_plan_to_pay_pp() throws Throwable {
 	   
+		
+		driver.get("https://www.slideteam.net/pricing?utm_expid=.ob6CI18MTrailD_9AQRC-g.0&utm_referrer=https%3A%2F%2Fwww.slideteam.net%2Fpricing");
+		Thread.sleep(4000);
+		// choose a plan
+		 WebElement join_now_btn  = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[3]//div[3]//span[1]//form[1]//button[1]//span[1]")));
+		js.executeScript("arguments[0].scrollIntoView();",join_now_btn);	
+		Thread.sleep(2000);
+		    join_now_btn.click();
+			Thread.sleep(5000);
+
 	}
 
-	@Then("^user lands on pricing page and then user go to free ppts page cd$")
-	public void user_lands_on_pricing_page_and_then_user_go_to_free_ppts_page_cd() throws InterruptedException  {
+	@Then("^user is redirected to checkout page pp$")
+	public void user_is_redirected_to_checkout_page_pp() throws Throwable {
+		Thread.sleep(2000);
+		try
+		{
+			WebElement cp_btn  = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='paypal_express']")));
+			Thread.sleep(2000);
+		    cp_btn.click();
+		    Thread.sleep(3000);
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
 		
-		Thread.sleep(5000);
-		Actions actions = new Actions(driver);
-		WebElement free_ppt_btn1=wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Free Stuff")));
-		actions.moveToElement(free_ppt_btn1).moveToElement(driver.findElement(By.xpath("//a[contains(text(),'Free PPTs')]"))).click().build().perform();
-		Thread.sleep(7000);
-		//WebElement free_ppt_btn=wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/header/div[1]/div[2]/div/nav/div/div/ul/li[2]/div/ul/li[1]/a")));
-	    //free_ppt_btn.click();
-	    //Thread.sleep(2000);
+		Thread.sleep(1000);
+	}
+
+	@Then("^user proceed to pay with paypal pp$")
+	public void user_proceed_to_pay_with_paypal_pp() throws Throwable {
+		Thread.sleep(2000);
+		
+		// place order button 
+		try
+		{
+			  WebElement place_order_btn  = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'Place Order')]")));
+			js.executeScript("arguments[0].scrollIntoView();",place_order_btn);	
+			Thread.sleep(3000);
+		          place_order_btn.click();
+			  Thread.sleep(5000);
+		}
+		 catch (Exception e) {
+			 //TODO: handle exception	 
+	        } 
+		Thread.sleep(1000);
+		try {
+			WebElement iframe = driver.findElement(By.id("livechat-full-view"));
+			if(iframe.isDisplayed()) {
+				driver.switchTo().frame(iframe);   
+				 Actions act = new Actions(driver);
+				 act.moveToElement(driver.findElement(By.cssSelector("#title .icon-minimize"))).build().perform();
+				 Thread.sleep(2000);
+					WebElement chat1=driver.findElement(By.cssSelector("#title .icon-minimize"));
+					 Thread.sleep(1000);
+						chat1.click();
+						 Thread.sleep(1000);
+						 driver.switchTo().defaultContent();
+						 Thread.sleep(1000);
+						 driver.switchTo().parentFrame();
+					 Thread.sleep(1000);
+			}
+			else {
+				
+
+			System.out.println("chat window does not open");
+			}
+		}
+				catch(NoSuchElementException NCP) {
+					
+				}
+	}
+
+	@Then("^paypal popup appears and user navigates back to my account pp$")
+	public void paypal_popup_appears_and_user_navigates_back_to_my_account_pp() throws Throwable {
+	    
+		  // Maximize Window
+		  driver.manage().window().maximize();
+		
+		  // Store the CurrentWindow for future reference
+		 // String handle = " ";
+		  String currentWindow = driver.getWindowHandle();
+		  String popupWindowHandle = null;
+		   
+		  // Switch To Popup Window
+		  
+		  for(String handle : driver.getWindowHandles()){
+		   if(!handle.equals(currentWindow)){
+		    
+		    popupWindowHandle = handle;
+		     driver.switchTo().window(popupWindowHandle);
+			   driver.manage().window().maximize();
+		   }
+		  }
+		  
+		 
+		  
+		// page title
+		  String pp_page_title=driver.getTitle();
+			Thread.sleep(3000);
+		    System.out.println("Title of the Page is --> "+pp_page_title);
+		    
+		 // place order button 
+			 WebElement cancel_order_btn  = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[contains(.,'Cancel and return to Slideteam Pte. Ltd.')])[2]")));
+				js.executeScript("arguments[0].scrollIntoView();",cancel_order_btn);
+		Thread.sleep(2000);
+			    cancel_order_btn.click();
+				Thread.sleep(5000);
+
+				 // Switch To Default Window
+				  
+				  driver.switchTo().window(currentWindow);
+		    
+	}
+
+	@Then("^user deleted the account pp$")
+	public void user_deleted_the_account_pp() throws Throwable {
 	   
-	}
-
-	@Then("^user download a free product cd$")
-	public void user_download_a_free_product_cd() throws InterruptedException  {
-		//driver.findElement(By.cssSelector("li.item:nth-child(8) > div:nth-child(1) > div:nth-child(2) > strong:nth-child(1) > span:nth-child(1) > a:nth-child(1)")).click();
-		//Thread.sleep(3000);
+		Thread.sleep(2000);
 		
-		driver.get("https://www.slideteam.net/circular-flow-of-process-4-stages-powerpoint-slides-templates.html");
-		Thread.sleep(3000);
-		
-		WebElement dwnd_btn = driver.findElement(By.cssSelector("#clicking"));
-		js.executeScript("arguments[0].scrollIntoView();", dwnd_btn);
-		 dwnd_btn.click();
-		Thread.sleep(3000);
-	   driver.get("https://www.slideteam.net/");
-	   Thread.sleep(3000);
-	}
 
-	@Then("^user delete the new account created cd$")
-	public void user_delete_the_new_account_created_cd() throws InterruptedException  {
-       Thread.sleep(3000);
-
-		
-		 WebElement account = driver.findElement(By.xpath("//a[contains(.,'My Account')]"));
-			  Thread.sleep(3000);
-			account.click();
+		 driver.findElement(By.xpath("//a[contains(.,'My Account')]")).click();
 		 Thread.sleep(3000);
 		 
 		
 
-		 WebElement delete_account = driver.findElement(By.cssSelector("#clicking"));
+
+try {
+			WebElement iframe = driver.findElement(By.id("livechat-full-view"));
+			if(iframe.isDisplayed()) {
+				driver.switchTo().frame(iframe);   
+				 Actions act = new Actions(driver);
+				 act.moveToElement(driver.findElement(By.cssSelector("#title .icon-minimize"))).build().perform();
+				 Thread.sleep(2000);
+					WebElement chat1=driver.findElement(By.cssSelector("#title .icon-minimize"));
+					 Thread.sleep(1000);
+						chat1.click();
+						 Thread.sleep(1000);
+						 driver.switchTo().defaultContent();
+						 Thread.sleep(1000);
+						 driver.switchTo().parentFrame();
+					 Thread.sleep(1000);
+			}
+			else {
+				
+
+			System.out.println("chat window does not open");
+			}
+		}
+				catch(NoSuchElementException NCP) {
+					
+				}
+
+
+
+		 WebElement delete_account = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/main/div/div[2]/div[2]/div[2]/ul/li/a")));
 		js.executeScript("arguments[0].scrollIntoView();",delete_account);
 		 delete_account.click();
 		 Thread.sleep(3000);
-		WebElement delete_reason = driver.findElement(By.cssSelector("#exampleRadios1"));
-		Thread.sleep(3000);
-		delete_reason.click();
-		Thread.sleep(3000);
-		
-		 WebElement delete_profile = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#delete-final")));
-		js.executeScript("arguments[0].scrollIntoView();",delete_profile);
-		delete_profile.click();
+		 WebElement continue_delete = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div/div[1]/div/div[2]/form/button[1]")));
+		js.executeScript("arguments[0].scrollIntoView();",continue_delete);
+		continue_delete.click();
 		 Thread.sleep(3000);
 		
-		WebElement delete_profile_coupon = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#flipModal > div > div > div.modal-footer.button_action > button.btn.btn-default.button_2")));
-		js.executeScript("arguments[0].scrollIntoView();",delete_profile_coupon);
-		delete_profile_coupon.click();
-		 Thread.sleep(3000);
 	}
-	
-	
+
+
 }
