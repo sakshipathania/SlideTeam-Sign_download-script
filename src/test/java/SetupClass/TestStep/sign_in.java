@@ -27,60 +27,18 @@ public class sign_in extends Set{
 		driver.get(AppURL);
 		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
 		log.info("It's opening the website URL");
-	    Thread.sleep(2000);
-	    try {
-			WebElement logout = driver.findElement(By.xpath("//a[contains(text(),'Sign Out')]"));
-			if (logout.isEnabled()) {
-				logout.click();
-				Thread.sleep(8000);
-				driver.navigate().refresh();
-				Thread.sleep(2000);
-			}
-		} catch (NoSuchElementException Ext) {
-
-		}
-	    Thread.sleep(1000);
-		try {
-			WebElement iframe = driver.findElement(By.id("livechat-full-view"));
-			if(iframe.isDisplayed()) {
-				driver.switchTo().frame(iframe);   
-				 Actions act = new Actions(driver);
-				 act.moveToElement(driver.findElement(By.cssSelector("#title .icon-minimize"))).build().perform();
-				 Thread.sleep(2000);
-					WebElement chat1=driver.findElement(By.cssSelector("#title .icon-minimize"));
-					 Thread.sleep(1000);
-						chat1.click();
-						 Thread.sleep(1000);
-						 driver.switchTo().defaultContent();
-						 Thread.sleep(1000);
-						 driver.switchTo().parentFrame();
-					 Thread.sleep(1000);
-			}
-			else {
-				
-
-			System.out.println("chat window does not open");
-			}
-		}
-				catch(NoSuchElementException NCP) {
-					
-				}
 		Thread.sleep(1000);
 	    
-	    
-	}
-
-	@Then("^user navigates to sign up page (\\d+)CO$")
-	public void user_navigates_to_sign_up_page_CO(int arg1) throws Throwable {
-		Thread.sleep(3000);
 		try {
-			driver.findElement(By.cssSelector("ul.header > li:nth-child(1) > a:nth-child(1)")).click();
+			driver.findElement(By.cssSelector(".authorization-link > a:nth-child(1)")).click();
 			Thread.sleep(2000);
-			log.info("It's opening the website URL and redirect user to sign up page");
+			log.info("It's opening the website URL");
 		} 
 		catch (NoSuchElementException popup) {
 		}
+	    
 	}
+
 
 	@Then("^user logins by existing ac count (\\d+)CO$")
 	public void user_logins_by_existing_ac_count_CO(int arg1) throws Throwable {
