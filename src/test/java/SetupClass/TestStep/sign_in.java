@@ -135,7 +135,7 @@ public class sign_in extends Set{
 	}
 
 	@Then("^user selects another plan$")
-	public void user_selects_another_plan throws InterruptedException {
+	public void user_selects_another_plan() throws InterruptedException {
 	     try {
 		     WebElement Pricing=driver.findElement(By.cssSelector("body > div.page-wrapper > header > div.header.content > div.panel.wrapper > div > nav > div > div > ul > li:nth-child(1) > a"));
 		     Thread.sleep(4000);
@@ -149,7 +149,7 @@ public class sign_in extends Set{
 	}
 
 	@Then("^User clicks on Place Order Button$")
-	public void user_clicks_on_Place_Order_Button throws Throwable {
+	public void user_clicks_on_Place_Order_Button() throws Throwable {
 		
 		try
 		{
