@@ -15,7 +15,7 @@ import SetupClass.Set;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
-public class Sign_In extends Set {
+public class sign_up_correct_data extends Set {
 	
 	WebDriverWait wait = new WebDriverWait(driver,10);
         JavascriptExecutor js = (JavascriptExecutor) driver;
