@@ -103,7 +103,7 @@ public class sign_in extends Set{
 	}
 
 	@Then("^user clicks on Most Popular$")
-	public void user_clicks_on_Most_Popular throws Throwable {
+	public void user_clicks_on_Most_Popular() throws Throwable {
 		
 		
 		Thread.sleep(1000);
