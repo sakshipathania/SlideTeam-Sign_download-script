@@ -15,7 +15,7 @@ import SetupClass.Set;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
-public class co_checkout extends Set{
+public class sign_in extends Set{
 	
 
 	WebDriverWait wait = new WebDriverWait(driver,8);
